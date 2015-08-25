@@ -1,0 +1,31 @@
+/* 石材项目整体样式 */
+
+/* logo块 */
+.navbar-inverse{
+	background-color: #4682B4;
+	border-color: #080808;
+}
+.navbar-inverse .navbar-brand{
+	color: #fff;
+}
+
+.top-nav>li>a{
+	color: #fff;
+}
+
+.top-nav>li>a:hover, .top-nav>li>a:focus, .top-nav>.open>a, .top-nav>.open>a:hover, .top-nav>.open>a:focus{
+	color: #fff;
+	background-color: #5F9EA0;
+}
+
+.dropdown-menu>li>a{
+	color:red
+}
+
+
+/* logo块 */
+
+/* 导航块 */
+
+
+/* 导航块 */

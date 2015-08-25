@@ -1,0 +1,24 @@
+#encoding=utf-8
+import tornado
+import os.path
+import logging
+import tornado.escape
+import tornado.ioloop
+import tornado.options
+import tornado.web
+import tornado.websocket
+import os.path
+import uuid
+from handlers.BaseHandler import BaseHandler
+
+class UsersHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        ##### 设置安全cookie #####
+        self.Username = self.get_secure_cookie("Username")
+        self.Flag = self.get_secure_cookie("Flag")
+        self.set_secure_cookie("Username",self.Username,expires_days=None)
+        self.set_secure_cookie("Flag",self.Flag,expires_days=None)
+
+        ####渲染传递数据####
+        self.render('users.html',Username = self.Username,User_Flag = self.Flag)

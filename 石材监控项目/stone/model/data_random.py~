@@ -1,0 +1,116 @@
+#!/usr/bin/python
+#encoding=utf-8
+
+import random
+import sys
+reload (sys)
+sys.setdefaultencoding('utf-8')
+
+class Random(object):
+    def __init__(self,dev_name='排锯'):
+        self.dev_name = dev_name
+        
+    
+        
+    def Day_data(self):
+        import random
+        day_json_list=[]
+        for i in range(4):
+            data_random1 = random.randint(0,1000)
+            data_random2 = random.randint(0,1000)
+            data_random3 = random.randint(0,1000)
+            
+            
+            day_elements = {'element0':'一班','element1':'二班','element2':'三班','element3':'总量'}
+
+            keyword = 'element%s'  % i
+            if keyword !='element3':
+                day_json = {'Item_information':day_elements.get(keyword),'Yield':data_random1,'Energy_consumption':data_random2,'Unit_energy_consumption':data_random3}
+            else:
+                total_Yield=total_Energy_consumption=total_Unit_energy_consumption = 0
+                
+                for j in range(len(day_json_list)):
+                    
+                    total_Yield = total_Yield+day_json_list[j].get('Yield')
+                    total_Energy_consumption = total_Energy_consumption+day_json_list[j].get('Energy_consumption')
+                    total_Unit_energy_consumption = total_Unit_energy_consumption+day_json_list[j].get('Unit_energy_consumption')
+                day_json = {'Item_information':day_elements.get(keyword),'Yield':total_Yield,'Energy_consumption':total_Energy_consumption,'Unit_energy_consumption':total_Unit_energy_consumption}
+            day_json_list.append(day_json)
+        print day_json_list
+        return day_json_list
+
+
+    def Month_data(self):
+        import random
+        month_json_list = []
+        key_list = []
+        value_list = []
+        for k in range(31):
+                key_element = 'day%s' % k
+                value_element = k+1
+                key_list.append(key_element)
+                value_list.append(value_element)
+        key_list.append('day31')
+        value_list.append('总量')
+        month_elements = dict(zip(key_list,value_list))
+        
+        
+        for i in range(32):
+            data_random1 = random.randint(0,1000)
+            data_random2 = random.randint(0,1000)
+            data_random3 = random.randint(0,1000)
+            #month_elements = dict(zip(key_list,value_list))
+            
+            keyword = 'day%s' % i
+            
+            if keyword !='day31':
+                month_json = {'Item_information':month_elements.get(keyword),'Yield':data_random1,'Energy_consumption':data_random2,'Unit_energy_consumption':data_random3}
+            else:
+                
+                total_Yield=total_Energy_consumption=total_Unit_energy_consumption = 0
+                for j in range(31):
+                    total_Yield = total_Yield+month_json_list[j].get('Yield')
+                    total_Energy_consumption = total_Energy_consumption+month_json_list[j].get('Energy_consumption')
+                    total_Unit_energy_consumption = total_Unit_energy_consumption+month_json_list[j].get('Unit_energy_consumption')
+                
+                month_json = {'Item_information':month_elements.get(keyword),'Yield':total_Yield,'Energy_consumption':total_Energy_consumption,'Unit_energy_consumption':total_Unit_energy_consumption}
+
+            month_json_list.append(month_json)
+        print month_json_list
+        return month_json_list
+        #print len(month_json_list)
+
+        
+    def Year_data(self):
+        import random
+        year_json_list = []
+        key_list = ['month0','month1','month2','month3','month4','month5','month6','month7','month8','month9','month10','month11','month12']
+        value_list = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','总量']
+        year_elements = dict(zip(key_list,value_list))
+        
+        for i in range(13):
+            data_random1 = random.randint(0,1000)
+            data_random2 = random.randint(0,1000)
+            data_random3 = random.randint(0,1000)
+        
+            keyword = 'month%s' % i
+            if keyword !='month12':
+                year_json = {'Item_information':year_elements.get(keyword),'Yield':data_random1,'Energy_consumption':data_random2,'Unit_energy_consumption':data_random3}
+            else:
+                total_Yield=total_Energy_consumption=total_Unit_energy_consumption = 0
+                for j in range(12):
+                    total_Yield = total_Yield+year_json_list[j].get('Yield')
+                    total_Energy_consumption = total_Energy_consumption+year_json_list[j].get('Energy_consumption')
+                    total_Unit_energy_consumption = total_Unit_energy_consumption+year_json_list[j].get('Unit_energy_consumption')
+                year_json = {'Item_information':year_elements.get(keyword),'Yield':total_Yield,'Energy_consumption':total_Energy_consumption,'Unit_energy_consumption':total_Unit_energy_consumption}
+            year_json_list.append(year_json)
+        print year_json_list
+        return year_json_list
+        #print len(year_json_list)
+
+
+if __name__ == '__main__':
+    random = Random()
+    #random.Day_data()
+    #random.Month_data()
+    random.Year_data()

@@ -1,0 +1,29 @@
+body{ 
+	margin: 0;
+	padding: 0;
+	color: #ddd;
+	font-size: 12px;
+	line-height: 1.6em; 
+	font-family: Microsoft YaHei;
+	background-color: #000;
+}
+
+a, a:link, a:visited { color: #9CF; font-weight: normal; text-decoration: none }
+a:hover { color: #FF6; text-decoration: none; }
+
+h1, h2, h3, h4, h5, h6 { color: #ffffff; font-weight: 700; }
+h1 { font-size: 65px; padding: 5px 0; }
+
+#mysql_test{ width:1000px; height:800px; margin:auto; background-color: #6633CC;overflow: scroll;}
+
+.get{
+margin-left:80%;
+margin-top:-3.7%;
+}
+
+.one
+{
+table-layout: automatic
+}
+.A
+{ height:12px;}

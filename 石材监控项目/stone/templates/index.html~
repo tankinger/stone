@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>石材监控系统</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../static/css/plugins/morris.css" rel="stylesheet">
+	
+	<link href="../static/css/style.css" rel="stylesheet">
+	<link href="../static/css/main1.css" rel="stylesheet">
+	<link href="../static/css/main.css" rel="stylesheet">
+	
+	
+
+    <!-- Custom Fonts -->
+    <link href="../static/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand logoset" href="index.html"></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+         
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown"><i class="fa fa-user fa-logout fa-lg"></i> {{Username}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      
+                        <li>
+                            <a href="/logout.html"><i class="fa fa-fw fa-sign-out fa-lg"></i> 退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav nav-font">
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> 实时监控</a>
+                    </li>
+                    <li>
+                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> 历史查询</a>
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> 生产报表</a>
+                    </li>
+                    <!--li>
+                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                    </li-->
+
+	{% if User_Flag == "admin" %}
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i> 用户管理 <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="users.html">所有用户</a>
+                            </li>
+                            <li>
+                                <a href="user-new.html">添加用户</a>
+                            </li>
+                        </ul>
+                    </li>
+	{% end %}
+                    <li>
+                        <a href="/logout.html" class="visible-xs"><i class="fa fa-fw fa-sign-out"></i> 退出</a>
+                    </li>
+					<div class="footer vs-lg1 hd-xs1">
+			<p>科达研发院 | 版权所有 ©2015</p>			
+			</div>
+                </ul>
+				
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper" class="mob-margin">
+		
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">实时监控</h1>
+						<!--
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Dashboard
+                            </li>
+                        </ol>
+						-->
+                    </div>
+                </div>
+				
+			 <!-- 监控信息图表-->
+			 <div class="wrap"> 
+				<div class="blog-grid">
+							<div class="blog-left warning_border hander_focus" id="pg0001"  onclick="location.href='monitor.html?id=pg0001'">
+							 	<div class="img-left">
+							 		<img class="hidden-xs hidden-sm" src="../static/images/blog1.jpg"/>
+									<p class="dev_name" id="pg0001_name"></p>
+							 	</div>	
+							 	<div class="text-right mes_text">
+							 		<p class="mes_title"><span id="pg0001_output_name"></span>:</p>
+							 		
+							 		<p class="mes_yield"><span id="pg0001_output_value"></span> <spam id="pg0001_output_unit"></span></p>
+									<pre class="mes_other1"><span id="pg0001_cutspeed_name"></span>: <span id="pg0001_cutspeed_value"></span> <span id="pg0001_cutspeed_unit"></span></pre>
+									<pre class="mes_other1"><span id='pg0001_cutratio_name'></span>: <span id='pg0001_cutratio_value'></span> <span id='pg0001_cutratio_unit'></span></pre>
+									<pre class="mes_other1"><span id='pg0001_mompower_name'></span>: <span id='pg0001_mompower_value'></span> <span id='pg0001_mompower_unit'></span></pre>
+									
+									
+							 		
+							 	</div>
+							    <div class="clear"> </div>
+							</div>
+							<div class="blog-right warning_border hander_focus" id="mj0001" onclick="location.href='monitor.html?id=mj0001'">
+							
+							 	<div class="img-left">
+							 		<img class="hidden-xs hidden-sm" src="../static/images/blog2.jpg" alt="" />
+									<p class="dev_name" id="mj0001_name"></p>
+							 	</div>	
+							 	<div class="text-right mes_text">
+							 		
+								   <p class="mes_title"><span id="mj0001_output_name"></span>:</p>
+
+                                                                        <p class="mes_yield"><span id="mj0001_output_value"></span> <spam id="mj0001_output_unit"></span></p>
+                                                                        <pre class="mes_other1"><span id="mj0001_beltspeed_name"></span>: <span id="mj0001_beltspeed_value"></span> <span id="mj0001_beltspeed_unit"></span></pre>
+                                                                        <pre class="mes_other1"><span id='mj0001_grindratio_name'></span>: <span id='mj0001_grindratio_value'></span> <span id='mj0001_grindratio_unit'></span></pre>
+                                                                        <pre class="mes_other1"><span id='mj0001_mompower_name'></span>: <span id='mj0001_mompower_value'></span> <span id='mj0001_mompower_unit'></span></pre>
+                                                                        
+							 		
+							 	</div>
+							    <div class="clear"> </div>
+								
+							</div>
+							<div class="clear"> </div>
+						</div>
+						
+						<div class="blog-grid">
+							<div class="blog-left warning_border hander_focus" id="bjx0001b" onclick="location.href='monitor.html?id=bjx0001b'">
+							 	<div class="img-left">
+							 		<img class="hidden-xs hidden-sm" src="../static/images/blog1.jpg" alt="" />
+									<p class="dev_name" id="">1#立体补胶线</p>
+							 	</div>	
+							 	<div class="text-right mes_text">
+								   <p class="mes_title"><span id="bjx0001b_name"></span></p>
+
+                                                                        <p class="mes_title"><span id="bjx0001b_output_name"></span>:</p>
+
+                                                                        <p class="mes_yield"><span id="bjx0001b_output_value"></span> <spam id="bjx0001b_output_unit"></span></p>
+                                                                        <pre class="mes_other1"><span id="bjx0001b_tacttiming_name"></span>: <span id="bjx0001b_tacttiming_value"></span> <span id="bjx0001b_tacttiming_unit"></span></pre>
+                                                                        <pre class="mes_other1"><span id='bjx0001b_totalpower_name'></span>: <span id='bjx0001b_totalpower_value'></span> <span id='bjx0001b_totalpower_unit'></span></pre>
+                                                                        <pre class="mes_other1"><span id='bjx0001b_mompower_name'></span>: <span id='bjx0001b_mompower_value'></span> <span id='bjx0001b_mompower_unit'></span></pre>
+
+							 		
+							 	</div>
+							    <div class="clear"> </div>
+							</div>
+							
+							
+							<div class="clear"> </div>
+						</div>
+				</div>
+					<!-- 监控信息图表-->
+                <!-- /.row -->
+
+            
+
+  
+            
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+            <div class="footer vs-xs1 hd-lg1 ">
+			<p>科达研发院 | 版权所有 ©2015</p>			
+			</div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="../static/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../static/js/plugins/morris/raphael.min.js"></script>
+    <script src="../static/js/plugins/morris/morris.min.js"></script>
+    <script src="../static/js/plugins/morris/morris-data.js"></script>
+    <script src="../static/js/Index.js"></script>
+    
+</body>
+
+</html>

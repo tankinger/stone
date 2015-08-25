@@ -1,0 +1,153 @@
+var socket;
+var id;
+var str_temp;
+var temp;
+
+if (!window.WebSocket) {
+    window.WebSocket = window.MozWebSocket;
+}
+
+// Javascript Websocket Client
+if (window.WebSocket) {
+    socket = new WebSocket("ws://"+window.location.hostname
+			   +":" + window.location.port + "/websocket1");
+
+    socket.onmessage = function(event) {
+	str_temp = event.data;
+	//temp = str_temp.split(' ')
+	temp = eval(str_temp)
+	//排锯数据
+	document.getElementById('pg0001_name').innerHTML=temp[0]['name'];
+	document.getElementById('pg0001_output_name').innerHTML=temp[0]['data'][0]['name'];
+	document.getElementById('pg0001_output_value').innerHTML=temp[0]['data'][0]['value'];
+	document.getElementById('pg0001_output_unit').innerHTML=temp[0]['data'][0]['unit'];
+	
+	document.getElementById('pg0001_cutspeed_name').innerHTML=temp[0]['data'][1]['name'];
+        document.getElementById('pg0001_cutspeed_value').innerHTML=temp[0]['data'][1]['value'];
+        document.getElementById('pg0001_cutspeed_unit').innerHTML=temp[0]['data'][1]['unit'];
+
+	document.getElementById('pg0001_cutratio_name').innerHTML=temp[0]['data'][2]['name'];
+        document.getElementById('pg0001_cutratio_value').innerHTML=temp[0]['data'][2]['value'];
+        document.getElementById('pg0001_cutratio_unit').innerHTML=temp[0]['data'][2]['unit'];
+
+	document.getElementById('pg0001_mompower_name').innerHTML=temp[0]['data'][3]['name'];
+        document.getElementById('pg0001_mompower_value').innerHTML=temp[0]['data'][3]['value'];
+        document.getElementById('pg0001_mompower_unit').innerHTML=temp[0]['data'][3]['unit'];
+
+	//排锯报警
+	if (temp[0]['state']['value']=="报警")
+	{
+	    document.getElementById("pg0001").style.border = "2px solid #FF0000"; 
+	}
+	else if(temp[0]['state']['value']=="运行")
+	{
+	    document.getElementById("pg0001").style.border = "2px solid #00CD00";
+	}
+	else if(temp[0]['state']['value']=="停机")
+	{
+	    document.getElementById("pg0001").style.border = "2px solid #5B5B5B";
+	}
+	else if(temp[0]['state']['value']=="通信异常")
+	{
+	    document.getElementById("pg0001").style.border = "2px solid #FFD306";
+	}
+	// 磨机数据
+	document.getElementById('mj0001_name').innerHTML=temp[1]['name'];
+        document.getElementById('mj0001_output_name').innerHTML=temp[1]['data'][0]['name'];
+        document.getElementById('mj0001_output_value').innerHTML=temp[1]['data'][0]['value'];
+        document.getElementById('mj0001_output_unit').innerHTML=temp[1]['data'][0]['unit'];
+
+        document.getElementById('mj0001_beltspeed_name').innerHTML=temp[1]['data'][1]['name'];
+        document.getElementById('mj0001_beltspeed_value').innerHTML=temp[1]['data'][1]['value'];
+        document.getElementById('mj0001_beltspeed_unit').innerHTML=temp[1]['data'][1]['unit'];
+
+        document.getElementById('mj0001_grindratio_name').innerHTML=temp[1]['data'][2]['name'];
+        document.getElementById('mj0001_grindratio_value').innerHTML=temp[1]['data'][2]['value'];
+        document.getElementById('mj0001_grindratio_unit').innerHTML=temp[1]['data'][2]['unit'];
+
+        document.getElementById('mj0001_mompower_name').innerHTML=temp[1]['data'][3]['name'];
+        document.getElementById('mj0001_mompower_value').innerHTML=temp[1]['data'][3]['value'];
+        document.getElementById('mj0001_mompower_unit').innerHTML=temp[1]['data'][3]['unit'];
+	
+	//磨机报警
+	if (temp[1]['state']['value']=="报警")
+        {
+            document.getElementById("mj0001").style.border = "2px solid #FF0000";
+        }
+        else if(temp[1]['state']['value']=="运行")
+	
+        {
+            document.getElementById("mj0001").style.border = "2px solid #00CD00";
+        }
+        else if(temp[1]['state']['value']=="停机")
+        {
+            document.getElementById("mj0001").style.border = "2px solid #5B5B5B";
+        }
+	else if(temp[1]['state']['value']=="通信异常")
+	{
+	    document.getElementById("mj0001").style.border = "2px solid #FFD306";
+	}
+	//补胶线数据
+	document.getElementById('bjx0001b_name').innerHTML=temp[2]['name'];
+        document.getElementById('bjx0001b_output_name').innerHTML=temp[2]['data'][0]['name'];
+        document.getElementById('bjx0001b_output_value').innerHTML=temp[2]['data'][0]['value'];
+        document.getElementById('bjx0001b_output_unit').innerHTML=temp[2]['data'][0]['unit'];
+
+        document.getElementById('bjx0001b_tacttiming_name').innerHTML=temp[2]['data'][1]['name'];
+        document.getElementById('bjx0001b_tacttiming_value').innerHTML=temp[2]['data'][1]['value'];
+        document.getElementById('bjx0001b_tacttiming_unit').innerHTML=temp[2]['data'][1]['unit'];
+
+        document.getElementById('bjx0001b_totalpower_name').innerHTML=temp[2]['data'][2]['name'];
+        document.getElementById('bjx0001b_totalpower_value').innerHTML=temp[2]['data'][2]['value'];
+        document.getElementById('bjx0001b_totalpower_unit').innerHTML=temp[2]['data'][2]['unit'];
+
+        document.getElementById('bjx0001b_mompower_name').innerHTML=temp[2]['data'][3]['name'];
+        document.getElementById('bjx0001b_mompower_value').innerHTML=temp[2]['data'][3]['value'];
+        document.getElementById('bjx0001b_mompower_unit').innerHTML=temp[2]['data'][3]['unit'];
+
+	//补胶线报警
+	if (temp[2]['state']['value']=="报警")
+	{
+	    document.getElementById("bjx0001b").style.border = "2px solid #FF0000";
+	}
+	else if(temp[2]['state']['value']=="运行")
+	{
+	    document.getElementById("bjx0001b").style.border = "2px solid #00CD00";
+	}
+	else if(temp[2]['state']['value']=="停机")
+	{
+	    document.getElementById("bjx0001b").style.border = "2px solid #5B5B5B";
+	}
+	else if(temp[2]['state']['value']=="通信异常")
+	{
+	    document.getElementById("bjx0001b").style.border = "2px solid #FFD306";
+	}
+    };
+
+    socket.onopen = function(event) {
+	tip();
+	id=window.setInterval(tip,5000);
+    };
+
+    socket.onclose = function(event) {
+	        //取消定时
+	window.clearInterval(id);
+    };
+
+}
+else {
+    alert("Your browser does not support Web Socket.");
+}
+//dingshi hanshu
+function tip(){
+    send('lai, gei wo shu ju !')
+}
+// Send Websocket data
+function send(message) {
+    if (!window.WebSocket) { return; }
+    if (socket.readyState == WebSocket.OPEN) {
+	socket.send(message);
+    } else {
+	alert("The socket is not open.");
+    }
+}

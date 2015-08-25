@@ -1,0 +1,50 @@
+#encoding=utf-8
+
+## Copyright (C), 2013-2014, ****.
+## File name:       setting.py
+## Author:          liutao    liutaoup@gmail.com
+## Version:         0.1.7
+## Date:            2013-09-10
+## Description:     settings for server
+## Others:          none
+## History:         none 
+##   1. Date:
+##      Author:
+##      Modification:
+##   2. ...
+
+import os
+#from  handlers.MysqlHandler import mysqlHandler
+#from  handlers.shujuHandler import shujuHandler
+from  handlers.LoginHandler import LoginHandler
+from  handlers.TablesHandler import TablesHandler
+from  handlers.LogoutHandler import LogoutHandler
+from handlers.ChartsHandler import ChartsHandler
+from handlers.BaseHandler import BaseHandler
+from handlers.UserNewHandler import UserNewHandler
+from handlers.UsersHandler import UsersHandler
+from handlers.IndexHandler import IndexHandler,Monitor_simple_SocketHandler 
+from handlers.MonitorHandler import MonitorHandler,Monitor_SocketHandler
+PORT = '8888'
+
+SETTINGS = dict(
+    template_path = os.path.join(os.path.dirname(__file__),"templates"),
+    static_path = os.path.join(os.path.dirname(__file__),"static"),
+    login_url="/login.html"
+    )
+
+urls = [
+  
+    (r'/login.html',LoginHandler),
+    (r'/tables.html',TablesHandler),
+    (r'/charts.html',ChartsHandler),
+    (r'/',LoginHandler),
+    (r'/logout.html',LogoutHandler),
+    (r'/user-new.html',UserNewHandler),
+    (r'/users.html',UsersHandler),
+    (r'/index.html',IndexHandler),
+    (r'/monitor.html',MonitorHandler),
+    (r'/websocket1',Monitor_simple_SocketHandler),
+    (r'/websocket2',Monitor_SocketHandler)
+]
+myCookeSecret="KCSSGoodLuckComeOn"

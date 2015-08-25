@@ -1,0 +1,221 @@
+/*实时监控 */
+.dev_name{
+	text-align:center;
+	margin-top:5%;
+	font-size:25px;
+	font-weight:500;
+	color:#4682B4;
+}
+
+.warning_border{
+	border: 2px solid #3b5998;
+}
+
+.mes_text{
+	text-align:left;
+}
+
+.mes_title{
+	margin-left:5%;
+	margin-top:2%;
+	font-size: 20px;
+}
+
+.mes_yield{
+	font-size: 30px;
+	text-align:center;
+	margin-top:-5%;
+	
+}
+
+
+
+.hander_focus{
+	cursor:pointer;
+}
+
+.monitor_left{
+	width: 100%;
+}
+
+
+
+
+.sign-in-up-form {
+  padding-top: 10px;
+}
+
+.margin-top10{
+    margin-top:10px;
+}
+/* 实时监控 */
+
+
+/* 表单提交 */
+.form-group {
+  margin-bottom: 22px;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  height: 45px;
+  padding: 6px 12px;
+  font-size: 18px;
+  line-height: 1.42857;
+  color: #696f6f;
+  background-color: white;
+  background-image: none;
+  border: 2px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.form-control:focus {
+  border-color: #00b6ad;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.btn {
+  display: inline-block;
+  #margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 0;
+  white-space: nowrap;
+  padding: 10px 23px;
+  font-size: 18px;
+  line-height: 1.42857;
+  border-radius: 4px;
+  -webkit-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: 0.5s ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn-success {
+  color: white;
+  background-color: #00b6ad;
+  border-color: #009d95;
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open > .btn-success.dropdown-toggle {
+  color: white;
+  background-color: #00837d;
+  border-color: #005f5b;
+}
+
+/* 表单提交 */
+
+
+/* 生产报表 */
+.small_log{
+	position:absolute;
+	margin-top:9px;
+	margin-left:38%;
+}
+
+.tables-form-control {
+  #display: block;
+  width: 16%;
+  height: 35px;
+  padding: 1px 2px;
+  font-size: 16px;
+  line-height: 1.42857;
+  color: #696f6f;
+  background-color: white;
+  background-image: none;
+  border: 2px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+.tables-form-control:focus {
+  border-color: #00b6ad;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.tables-margin1{
+
+	margin-left:2%;
+	
+}
+
+.tables-time-font1{
+	font-size:15px;
+}
+
+.tables-check{
+	height:35px;
+	margin-top:-2px;
+}
+
+input[type=submit].btn-block,
+input[type=reset].btn-block,
+input[type=button].btn-block{
+	width:15%;
+	padding-top:5px;
+}
+
+.tables-label{
+	font-size:16px;
+}
+
+/* 生产报表 */
+
+
+/* 导航 */
+
+.dropdown-menu{
+        min-width:100px;
+}
+
+
+
+.fa-logout{
+        margin-right:6px;
+}
+
+.nav-font{
+        font-size:16px;
+}
+
+/* 导航 */
+
+
+
+/*隐藏 显示类*/
+
+
+  
+
+.visible1{
+   visibility:visible;
+}
+
+  
+
+/*隐藏 显示类*/

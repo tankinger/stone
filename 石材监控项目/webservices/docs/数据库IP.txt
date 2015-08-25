@@ -1,0 +1,10 @@
+MySQL 
+IP: 10.9.32.119
+Port: 3306
+DBname: stonefab0001
+
+User: stonejk
+PSW:  kedastone
+
+
+

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>石材监控系统</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="../static/css/sb-admin.css" rel="stylesheet" type="text/css">
+
+    <!-- Morris Charts CSS -->
+    <link href="../static/css/plugins/morris.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href="../static/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/main2.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/main.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand logoset" href="index.html"></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+            
+        
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown"><i class="fa fa-user fa-logout fa-lg"></i>{{Username}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/logout.html"><i class="fa fa-fw fa-sign-out fa-lg"></i> 退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav nav-font">
+                    <li>
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> 实时监控</a>
+                    </li>
+                    <li class="active">
+                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> 历史查询</a>
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> 生产报表</a>
+                    </li>
+                    <!--li>
+                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                    </li-->
+
+	{% if User_Flag == "admin" %}
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i> 用户管理 <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="users.html">所有用户</a>
+                            </li>
+                            <li>
+                                <a href="user-new.html">添加用户</a>
+                            </li>
+                        </ul>
+                    </li>
+	{% end %}
+		    
+                    <li>
+                        <a href="/logout.html" class="visible-xs"><i class="fa fa-fw fa-sign-out"></i> 退出</a>
+                    </li>
+					<div class="footer vs-lg1 hd-xs1">
+			<p>科达研发院 | 版权所有 ©2015</p>			
+			</div>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper" class="mob-margin">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            历史查询
+                        </h1>
+
+
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-12">
+      <form action="/charts.html" method="post" name="form1">
+      <div class="col-sm-12 col-xs-12 col-md-1" style="width:50px;padding-right:0px">
+       <label class="" align="right" style="margin-top:20%">设备:</label>
+       </div>
+       <div class="col-sm-12 col-xs-12 col-md-2" style="padding-right:0px">
+        <td class="">
+         <select class="form-control" name="selectp" onChange="selectcityarea('selectp','selectc','form1');" style="width:100%">
+          <option value="0" selected>请选择--
+        </select>
+      </td>
+      </div>
+	  <div class="col-sm-12 col-xs-12 col-md-1" style="width:50px;padding-right:0px"> 
+      	<label class="" align="right" style="margin-top:20%">内容:</label>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-2" style="padding-right:0px">
+      <td class="">
+        <select class="form-control" name="selectc" style="width:100%">
+          <option value="0" selected>请选择--
+        </select>
+        </td>
+        </div>
+       <div class="col-sm-12 col-xs-12 col-md-1" style="width:50px;padding-right:0px">
+        <label style="margin-top:20%">日期:</label>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-3" style="padding-right:0px">
+                <input class="form-control" type="date" name="time" value={{ts}} style="width:100%">
+               </div>
+	
+       <div class="col-sm-12 col-xs-12 col-md-2">
+	  <div class="visible-xs" style="margin-top:10px;"></div>
+	  <div class="visible-sm" style="margin-top:10px;"></div>
+        <input class="btn btn-success btn-block hidden-sm" type="submit" value="查询"/ style="width:105%">
+	<input class="btn btn-success btn-block visible-sm" type="submit" value="查询"/ style="width:103%">
+
+        </div>
+  </form>
+
+                        </ol>
+                    </div>
+                </div>
+    <div id="main" style="height:400px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="../static/js/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+	require.config({
+	packages: [
+        {
+            name: 'echarts',
+            location: '../static/js/echarts/dist',
+            main: 'echarts'
+        },
+        {
+            name: 'zrender',
+            location: '../static/js/echarts/build', // zrender与echarts在同一级目录
+            main: 'zrender'
+        }
+    ]
+});
+
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                var option = {
+    title : {
+        text: '{{devname}} \t \t{{content}} \t \t{{time_data}}',
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    grid:{
+	x:38, //设定x轴边缘宽度
+	//y:0,
+	x2:20, //设定y轴边缘宽度
+	//y2:0
+	},
+    legend: {
+        data:[]
+    },
+    toolbox: {
+        show : false, //自选图表功能策略true or false
+        feature : {
+            mark : {show: false},  //辅助线开关
+            dataView : {show: false, readOnly: false}, //数据文本开关
+            magicType : {show: false, type: ['line', 'bar']}, //可转换折线图和柱状图开关
+            restore : {show: false},  //还原开关
+            saveAsImage : {show: false} //保存图片开关
+        }
+    },
+    calculable : true,
+    dataZoom : {
+            show : true, //图表上方缩视框开关
+            realtime : true,
+            //orient: 'vertical',   // 'horizontal'
+            //x: 80,
+            y: 30, //缩视框高度
+            //width: 400,
+            //height: 20,
+            backgroundColor: 'rgba(0,0,0,0)', //缩视框背景颜色
+            dataBackgroundColor: '#eee',  //数据缩略背景颜色
+            fillerColor: 'rgba(144,197,237,0.2)', //选择区域填充颜色
+            handleColor: 'rgba(70,130,180,0.8)',  //控制手柄颜色
+            //xAxisIndex:[],
+            //yAxisIndex:[],
+            start : 0, //缩放比例
+            end : 100,
+              },
+	
+    xAxis : [
+        {
+            type : 'category', //x轴数据
+            boundaryGap : false,
+            data :  function (){
+                    var list1 = [];
+                    {% for user in times%}
+                    list1.push('{{user}}')
+                    {% end %}
+                    return list1;
+        }()
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            //name:'邮件营销',
+            type:'line',  //y轴数据
+            stack: '总量',
+            data:  function (){
+                   var list1 = [];
+                   {% for user in data%}
+                   list1.push('{{user}}')
+                   {% end %}
+                   return list1;
+        }()
+        },
+
+    ]
+
+};
+           // if ({{devname}}='')
+	   //    {
+	   //    option.title.text = '查无数据';
+	   //    }
+	   // else
+	   //    {
+           //    option.title.text = '{{devname}}——{{content}}';
+	   //    };
+
+                // 为echarts对象加载数据
+                myChart.setOption(option);
+            }
+        );
+    </script>
+
+              <!-- /.row -->
+
+                <div class="row"></div>
+              <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+		<div class="footer vs-xs1 hd-lg1 ">
+			<p>科达研发院 | 版权所有 ©2015</p>			
+			</div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="../static/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../static/js/plugins/morris/raphael.min.js"></script>
+    <script src="../static/js/plugins/morris/morris.min.js"></script>
+    <script src="../static/js/plugins/morris/morris-data.js"></script>
+    <script src="../static/js/table_choose.js"></script>
+    <script src="../static/js/echarts-all.js"></script>
+    <script src="../static/js/echartsExample.js"></script>
+    <!-- Flot Charts JavaScript -->
+    <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
+    <script src="../static/js/plugins/flot/jquery.flot.js"></script>
+    <script src="../static/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="../static/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="../static/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="../static/js/plugins/flot/flot-data.js"></script>
+    <script language="javascript">first("selectp","selectc","form1","01","currentflow");</script>
+
+</body>
+
+</html>

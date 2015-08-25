@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="tanchengjie">
+    <!-- Title -->
+    <title>石材能效管理系统</title>
+
+    <title>SB Admin - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link href="../static/css/main1.css" rel="stylesheet">
+	<link href="../static/css/style.css" rel="stylesheet">
+	<link href="../static/css/main.css" rel="stylesheet">
+	<link rel="shortcut icon" href="../static/images/favicon.ico" type="image/ico">
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand logoset" href="index.html"></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+            
+        
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown"><i class="fa fa-user fa-logout fa-lg"></i>{{Username}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/logout.html"><i class="fa fa-fw fa-sign-out fa-lg"></i> 退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav nav-font">
+                    <li>
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> 实时监控</a>
+                    </li>
+                    <li>
+                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> 历史查询</a>
+                    </li>
+                    <li class="active">
+                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> 生产报表</a>
+                    </li>
+                    <!--li>
+                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                    </li-->
+
+	{% if User_Flag == "admin" %}
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i> 用户管理 <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="users.html">所有用户</a>
+                            </li>
+                            <li>
+                                <a href="user-new.html">添加用户</a>
+                            </li>
+                        </ul>
+                    </li>
+	{% end %}
+		    
+                    <li>
+                        <a href="/logout.html" class="visible-xs"><i class="fa fa-fw fa-sign-out"></i> 退出</a>
+                    </li>
+					<div class="footer vs-lg1 hd-xs1">
+			<p>科达研发院 | 版权所有 ©2015</p>			
+			</div>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper" class="mob-margin">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+		     
+                        <h1 class="page-header">
+                            生产报表
+                        </h1>
+                        <ol class="breadcrumb col-lg-12">
+                            
+							<form action="/tables.html" method="post" name="message_table" >
+							
+							<label class="tables-label">报表类型:</label>
+							<select name="table_type" class="tables-form-control">
+								<option value="dayreport">日报表</option>
+								<option value="monthreport">月报表</option>
+								<option value="yearreport">年报表</option>
+								
+								
+							</select>
+							
+						
+						 <label class="tables-margin1 tables-label">选择设备:</label>
+						 <select name="dev_type" class="tables-form-control">
+								<option value="pg0001">排锯</option>
+								<option value="mj0001">磨机</option>
+								<option value="bjx0001b">补胶线</option>
+							</select>
+							
+							
+						
+						<label class="tables-margin1 tables-label">选择时间:</label>	
+				<input type="date" name="time" required="required" class="tables-form-control tables-time-font1" value={{time}}>
+						
+						
+						 <input type="submit" value="查询数据" class="tables-check tables-margin1 btn btn-success btn-block"/>
+							
+                            </form>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="font-size1">{{title_name}}</h2>
+                        <div class="table-responsive">
+<div class="">
+ {% if e != False  %}
+  <div class="row-fluid">
+    <div class="span12">
+                            <table class="table table-bordered table-hover">
+                                <thead >
+                                    <tr >
+				      {% for i in thead %}
+                                        <th >{{i}}</th>
+                                      {% end %}
+                                    </tr>
+                                </thead>
+
+				{% for j in tbody %}
+                                <tbody>
+                                    <tr class="success">
+                                        <td>{{j[0]}}</td>
+                                        <td>{{j[1]}}</td>
+                                        <td>{{j[2]}}</td>
+                                        <td>{{j[3]}}</td>
+                                    </tr>
+                                
+                                </tbody>
+				{% end %}
+
+				<tbody>
+                                    <tr class="success">
+                                        <td>{{total[0]}}</td>
+                                        <td>{{total[1]}}</td>
+                                        <td>{{total[2]}}</td>
+                                        <td>{{total[3]}}</td>
+                                    </tr>
+
+                                </tbody>
+				
+			
+
+                            </table>
+</div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                 
+                <!-- /.row -->
+
+                
+           
+                    
+
+            </div>
+            <!-- /.container-fluid -->
+{% end %}
+        </div>
+        <!-- /#page-wrapper -->
+		<div class="footer vs-xs1 hd-lg1 ">
+			<p>科达研发院 | 版权所有 ©2015</p>			
+			</div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="../static/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

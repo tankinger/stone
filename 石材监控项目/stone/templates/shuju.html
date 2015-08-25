@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>iKEDA</title>
+<meta name="keywords" content="metro, free website template, beautiful grid, image grid menu, colorful theme" />
+<meta name="description" content="Metro is a free website template by templatemo.com and it features jQuery horizontal scrolling among pages." />
+
+	<link href="../static/css/ikeda_mysql.css" type="text/css" rel="stylesheet" /> 
+	
+
+</head> 
+<body> 
+<div id="templatemo_header">
+    
+      <h1>iKEDA</h1>
+	  
+</div>
+
+
+<div id="mysql_test">
+{% for j in range(i) %}
+<table  class="one"  height="1" border="1" cellspacing="2" cellpadding="2"  style="table-layout:auto">
+  <tr>
+  	 <form  action="/shuju.html" method="post">
+
+    <td width="7" ><p> <input class="A" type="text" size="1" name="id" style="text-align: center" value={{id[j]}} readonly="readonly" /> </p> </td>
+    <td width="52"><p> <input class="A" type="text" size="4" name="zone" value="{{zone[j]}}" /> </p> </td>
+    <td width="61" ><p> <input class="A" type="text" size="8" name="name1" value="{{name1[j]}}" /> </p> </td>
+    <td width="72"> <p> <input class="A" type="text" size="10" name="name2"  value="{{name2[j]}}" /> </p> </td>
+    <td width="86"> <p> <input class="A" type="text" size="12" name="address" value="{{address[j]}}" /> </p> </td>
+    <td width="71"> <p> <input class="A" type="text" size="10" name="telephone" value="{{telephone[j]}}" /> </p> </td>
+	<p> <input type="hidden" name="id1" value="{{host}}" /> </p>
+	<p> <input type="hidden" name="id2" value="{{user}}" /> </p>
+	<p> <input type="hidden" name="id3" value="{{passwd}}" /> </p>
+	<p> <input type="hidden" name="id4" value="{{db}}" /> </p>
+	<td width="48"> <input type="submit" size="1" value="修改"  /> </td>
+	
+	</form>
+  </tr>
+
+</table>
+
+{% end %}
+
+</div>
+
+
+</body> 
+
+</html>

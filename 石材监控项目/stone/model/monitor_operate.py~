@@ -1,0 +1,205 @@
+#!/usr/bin/python
+#encoding=utf-8
+'''
+作者：tancj
+时间：20150807
+模块用途：
+        针对石材监控系统实时数据的处理，具体参考各功能函数的说明
+'''
+import json
+import ConfigParser
+import sys
+
+reload (sys)
+sys.setdefaultencoding('utf-8')
+from url_json_api import UrlJsonApi
+from Config import Config
+
+class MonitorOperate(object):
+
+    '''初始化读取配置文件'''
+    def __init__(self,Block_Name='StoneRestful',Block_Value='rest_url'):
+        config = Config()
+        self.ip_address = config.Read_Config(1,Block_Name,Block_Value)
+        
+    def Multi_Devices(self):
+        '''处理监控多设备页面数据'''
+        multi_devices_url_list = []
+        multi_devices_json_data_list = []
+        
+
+        ####获取restful多设备目录####
+        restful_json_data = UrlJsonApi()
+        monitor_devices_url = "%s/v1.0/stonefab/0001/devices" % self.ip_address
+        devices_json_data = restful_json_data.url_method(1,monitor_devices_url)
+        devices_data = json.loads(devices_json_data)
+
+
+        ####获取restful多设备数据地址列表####
+        for i in devices_data['devices']:
+            multi_devices_url = "%s/v1.0/stonefab/0001/rtshort/device/%s" %(self.ip_address,i['did'])
+            multi_devices_url_list.append(multi_devices_url)
+            
+        ####获取restful多设备数据####
+        for i in multi_devices_url_list:
+            i = str(i)
+            multi_devices_json_data = restful_json_data.url_method(1,i)
+            multi_devices_json_data = json.loads(multi_devices_json_data)
+            multi_devices_json_data_list.append(multi_devices_json_data)
+        #print simple_devices_json_data_list
+        return multi_devices_json_data_list
+        
+    
+    def Single_Device(self):
+        '''处理监控单设备数据'''
+        single_device_url_list = []
+        single_device_json_data_list = []
+        self.device_data_list = []
+ 
+        ####获取restful设备目录####
+        restful_json_data = UrlJsonApi()
+        monitor_devices_url = "%s/v1.0/stonefab/0001/hsweb/devices" % self.ip_address
+        devices_json_data = restful_json_data.url_method(1,monitor_devices_url)
+        devices_data = json.loads(devices_json_data)
+
+        ####设置全局变量，供其他函数调用####
+        self.devices_data_Single = devices_data
+
+        ####获取restful整页面设备数据地址列表####
+        for i in devices_data['devices']:
+            single_device_url = "%s/v1.0/stonefab/0001/rtmore/device/%s" %(self.ip_address,i['did'])
+            single_device_url_list.append(single_device_url)
+
+        ####获取restful单设备数据####
+        for i in single_device_url_list:
+            i = str(i)
+            single_device_json_data = restful_json_data.url_method(1,i)
+            single_device_json_data = json.loads(single_device_json_data)
+            single_device_json_data_list.append(single_device_json_data)
+
+        ####设置全局变量，供其他函数调用####
+        self.device_data_list = single_device_json_data_list
+        #print single_device_json_data_list
+        return single_device_json_data_list
+
+    def Single_Device_Page(self):
+        '''构造单设备网页使用的列表'''
+        IdForPage_Internal_list = IdForPage_External_list = IdForPage_Total_list = []
+        #### 调用Single_Device函数内的全局变量####
+        device_data_list = self.device_data_list
+
+        #### 构造列表 ####
+        for k,i in enumerate(device_data_list):
+            did = str(i['did'])
+            IdForPage_External_list =[]
+            for j in i['data']:
+                cid = j['cid']
+                IdForPage_name =str("%s_%s_name" %(did,cid))
+                IdForPage_value = str("%s_%s_value" %(did,cid))
+                IdForPage_unit = str("%s_%s_unit" %(did,cid))
+                IdForPage_Internal_list = [IdForPage_name,IdForPage_value,IdForPage_unit]
+                IdForPage_External_list.append(IdForPage_Internal_list)
+    
+            IdForPage_External_dict = {did:IdForPage_External_list}
+            IdForPage_Total_list.append(IdForPage_External_dict)
+        
+        ####设置全局变量，供其他函数调用####
+        self.IdForPage_Total_list = IdForPage_Total_list
+        #print IdForPage_Total_list 
+        return IdForPage_Total_list
+
+
+    def Choice_Device(self,device_code=''):
+        '''选择设备,并返回设备相应的数据'''
+
+        IdForPage_list = []
+        #### 调用Single_Device_Page函数内的全局变量####
+        IdForPage_Total_list = self.IdForPage_Total_list
+
+        ####判断设备，并提取相应的数据列表####
+        for i in IdForPage_Total_list:
+            keyword = i.keys()[0]
+            try:
+                if device_code == keyword:
+                    IdForPage_list = i[device_code]
+            except:
+                print '参数有误，请检查参数传值'
+        return IdForPage_list
+
+    def Device_Name(self,device_code=''):
+        '''获取一个设备的设备名字 '''
+
+        #### 调用Multi_Devices函数内的全局变量####
+        devices_info = self.devices_data_Single
+        
+        for i in devices_info['devices']:
+            try:
+                if device_code == i['did']:
+                    device_name = i['name']
+            except:
+                print '参数有误，请检查参数传值'
+        return device_name
+
+
+    def Choice_Single_Device(self,device_code=''):
+        '''选择设备提供设备的数据，此数据异步js使用 '''
+
+        #### 调用Single_Device函数内的全局变量 ####
+        single_device_data_list = self.device_data_list
+
+        #### 判断设备，并提取相应的数据列表 ####
+        for i in single_device_data_list:
+            did = str(i['did'])
+            if device_code == did:
+                Single_Device_data = i['data']
+        print Single_Device_data
+        return Single_Device_data
+
+
+
+    def Choice_State_Device(self,device_code=''):
+        ''' 选择设备的运行状态，此数据异步js使用 '''
+        
+        #### 调用Single_Device函数内的全局变量 ####
+        single_device_data_list = self.device_data_list
+        
+        #### 判断设备，并提取相应的数据列表 ####
+        for i in single_device_data_list:
+            did = str(i['did'])
+            if device_code == did:
+                State_Device_data = i['state']
+        return State_Device_data
+
+    def Choice_Alarms_Device(self,device_code=''):
+        ''' 选择设备的故障信息，此数据异步js使用 '''
+        
+        Alarms_str =''
+        #### 调用Single_Device函数内的全局变量 ####
+        single_device_data_list = self.device_data_list
+        
+        #### 判断设备，并提取相应的数据列表 ####
+        for i in single_device_data_list:
+            did = str(i['did'])
+            if device_code == did:
+                State_Device_data = i['alarms']
+
+        for j in State_Device_data['value']:
+            Alarms_str = Alarms_str +j+'、'
+
+        Alarms_str = Alarms_str.rstrip('、')
+        State_Device_data['value']= Alarms_str
+        #print State_Device_data
+        return State_Device_data
+
+
+
+if __name__ == "__main__":
+    RealDataOperate = MonitorOperate()
+    RealDataOperate.Single_Device()
+    #RealDataOperate.Multi_Devices()
+    #RealDataOperate.Single_Device_Page()
+    #RealDataOperate.Choice_Device('mj0001')
+    #RealDataOperate.Device_Name('pg0001')
+    #RealDataOperate.Choice_Single_Device('pg0001')
+    #RealDataOperate.Choice_State_Device('pg0001')
+    RealDataOperate.Choice_Alarms_Device('pg0001')
